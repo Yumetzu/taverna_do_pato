@@ -32,6 +32,10 @@ class _TelaLoginState extends State<TelaLogin> {
               const SizedBox(height: 40),
               // Campo E-mail
               TextField(
+                style: TextStyle(
+                  color: Colors.white54,
+                  fontSize: 14,
+                ),
                 controller: emailController,
                 decoration: const InputDecoration(
                   labelText: 'E-mail',
@@ -44,6 +48,12 @@ class _TelaLoginState extends State<TelaLogin> {
               TextField(
                 controller: senhaController,
                 obscureText: true,
+                style: TextStyle(
+                  color: Colors.white54,
+                  fontSize: 8,
+                  letterSpacing: 2.0,
+                ),
+                obscuringCharacter: '●',
                 decoration: const InputDecoration(
                   labelText: 'Senha',
                   border: OutlineInputBorder(),
