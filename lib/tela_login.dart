@@ -10,6 +10,7 @@ class TelaLogin extends StatefulWidget {
 class _TelaLoginState extends State<TelaLogin> {
   final emailController = TextEditingController();
   final senhaController = TextEditingController();
+  final formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -18,64 +19,78 @@ class _TelaLoginState extends State<TelaLogin> {
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Taverna do Pato',
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepOrange,
-                ),
-              ),
-              const SizedBox(height: 40),
-              // Campo E-mail
-              TextField(
-                style: TextStyle(
-                  color: Colors.white54,
-                  fontSize: 14,
-                ),
-                controller: emailController,
-                decoration: const InputDecoration(
-                  labelText: 'E-mail',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.email),
-                ),
-              ),
-              const SizedBox(height: 16),
-              // Campo Senha
-              TextField(
-                controller: senhaController,
-                obscureText: true,
-                style: TextStyle(
-                  color: Colors.white54,
-                  fontSize: 8,
-                  letterSpacing: 2.0,
-                ),
-                obscuringCharacter: '●',
-                decoration: const InputDecoration(
-                  labelText: 'Senha',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.lock),
-                ),
-              ),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {
-                    print("Login: ${emailController.text}");
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepOrange,
-                    foregroundColor: Colors.white,
+          child: Form(
+            key: formkey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Taverna do Pato',
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepOrange,
                   ),
-                  child: const Text('Entrar'),
                 ),
-              ),
-            ],
+                const SizedBox(height: 40),
+                // Campo E-mail
+                TextFormField(
+                  style: TextStyle(
+                    color: Colors.white54,
+                    fontSize: 14,
+                  ),
+                  controller: emailController,
+                  decoration: const InputDecoration(
+                    labelText: 'nome de usuario',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.email),
+                  ),
+                  validator:(value){
+                    if (value!.isEmpty){
+                      return "Campo Obrigatório!";
+                    }
+                    if (value.contains("@") == false && (value.contains(".com.br")) == false) {
+                      return "E-mail inválido";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                // Campo Senha
+                TextFormField(
+                  controller: senhaController,
+                  obscureText: true,
+                  style: TextStyle(
+                    color: Color.fromARGB(75, 255, 255, 255),
+                    fontSize: 8,
+                    letterSpacing: 2.0,
+                  ),
+                  obscuringCharacter: '●',
+                  decoration: const InputDecoration(
+                    labelText: 'Senha',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.lock),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (formkey.currentState!.validate()) {
+
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepOrange,
+                      foregroundColor: Colors.white,
+                    ),
+                    child: const Text('Entrar'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
