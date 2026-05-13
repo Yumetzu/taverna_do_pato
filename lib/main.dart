@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taverna/tela_cadastro.dart';
 import 'package:taverna/tela_login.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MinhaRedeSocial extends StatelessWidget {
         primarySwatch: Colors.deepOrange,
         useMaterial3: true,
       ),
-      home: const TelaLogin(),
+      home: const TelaCadastro(),
     );
   }
 }
