@@ -51,6 +51,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                     ),
                   ),
                   const SizedBox(height: 40),
+                  // Campo Usuario
                   TextFormField(
                     controller: _userController,
                     style: const TextStyle(color: Colors.white70),
@@ -70,8 +71,10 @@ class _TelaCadastroState extends State<TelaCadastro> {
                     },
                   ),
                   const SizedBox(height: 16),
+                  // Campos Email
                   TextFormField(
                     controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
                     style: const TextStyle(color: Colors.white70),
                     decoration: const InputDecoration(
                       labelText: 'E-mail',
@@ -89,8 +92,10 @@ class _TelaCadastroState extends State<TelaCadastro> {
                     },
                   ),
                   const SizedBox(height: 16),
+                  // Campo Telefone
                   TextFormField(
                     controller: _telefoneController,
+                    keyboardType: TextInputType.phone,
                     style: const TextStyle(color: Colors.white70),
                     decoration: const InputDecoration(
                       labelText: 'Telefone',
@@ -108,9 +113,26 @@ class _TelaCadastroState extends State<TelaCadastro> {
                     }
                   ),
                   const SizedBox(height: 16),
+                  // Campo Senha
                   TextFormField(
                     controller: _senhaController,
-
+                    obscureText: true,
+                    obscuringCharacter: '●',
+                    style:  const TextStyle(
+                      color: Color.fromARGB(75, 255, 255, 255),
+                      fontSize: 8,
+                      letterSpacing: 2.0,
+                    ),
+                    decoration: const InputDecoration(
+                      labelText: 'Senha',
+                      labelStyle: TextStyle(color: Colors.deepOrange),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.deepOrange),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.orangeAccent),
+                      )
+                    )
                   ),
                   const SizedBox(height: 20),
                   SizedBox(

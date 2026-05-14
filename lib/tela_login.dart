@@ -8,9 +8,15 @@ class TelaLogin extends StatefulWidget {
 }
 
 class _TelaLoginState extends State<TelaLogin> {
-  final emailController = TextEditingController();
-  final senhaController = TextEditingController();
-  final formkey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _senhaController = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _senhaController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +26,7 @@ class _TelaLoginState extends State<TelaLogin> {
         padding: const EdgeInsets.all(24.0),
         child: Center(
           child: Form(
-            key: formkey,
+            key: _formkey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -39,7 +45,7 @@ class _TelaLoginState extends State<TelaLogin> {
                     color: Colors.white54,
                     fontSize: 14,
                   ),
-                  controller: emailController,
+                  controller: _emailController,
                   decoration: const InputDecoration(
                     labelText: 'nome de usuario',
                     border: OutlineInputBorder(),
@@ -58,7 +64,7 @@ class _TelaLoginState extends State<TelaLogin> {
                 const SizedBox(height: 16),
                 // Campo Senha
                 TextFormField(
-                  controller: senhaController,
+                  controller: _senhaController,
                   obscureText: true,
                   style: TextStyle(
                     color: Color.fromARGB(75, 255, 255, 255),
@@ -78,7 +84,7 @@ class _TelaLoginState extends State<TelaLogin> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      if (formkey.currentState!.validate()) {
+                      if (_formkey.currentState!.validate()) {
 
                       }
                     },
