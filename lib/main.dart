@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taverna/tela_cadastro.dart';
 import 'package:taverna/tela_login.dart';
+import 'package:taverna/tela_cadastro.dart';
 
 void main() {
   runApp(const MinhaRedeSocial());

@@ -61,13 +61,56 @@ class _TelaCadastroState extends State<TelaCadastro> {
                         borderSide: BorderSide(color: Colors.deepOrange),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: BorderSide(color: Colors.orange),
                       ),
                     ),
                     validator: (valor) {
                       if (valor == null || valor.isEmpty) return 'Digite seu nome';
                       return null;
                     },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _emailController,
+                    style: const TextStyle(color: Colors.white70),
+                    decoration: const InputDecoration(
+                      labelText: 'E-mail',
+                      labelStyle: TextStyle(color: Colors.deepOrange),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.deepOrange)
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      )
+                    ),
+                    validator: (valor) {
+                      if (valor == null || valor.isEmpty) return 'Digite seu E-mail';
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _telefoneController,
+                    style: const TextStyle(color: Colors.white70),
+                    decoration: const InputDecoration(
+                      labelText: 'Telefone',
+                      labelStyle: TextStyle(color: Colors.deepOrange),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.deepOrange)
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      )
+                    ),
+                    validator: (valor) {
+                      if (valor == null || valor.isEmpty) return 'Digite seu Telefone';
+                      return null;
+                    }
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _senhaController,
+
                   ),
                   const SizedBox(height: 20),
                   SizedBox(
