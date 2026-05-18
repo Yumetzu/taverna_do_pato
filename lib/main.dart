@@ -15,6 +15,14 @@ class MinhaRedeSocial extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Taverna do Pato',
       theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(enabledBorder:
+        OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.deepOrange)
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.amber),
+      ),
+        ),
         primarySwatch: Colors.deepOrange,
         useMaterial3: true,
       ),

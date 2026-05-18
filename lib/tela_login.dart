@@ -16,6 +16,7 @@ class _TelaLoginState extends State<TelaLogin> {
   void dispose() {
     _emailController.dispose();
     _senhaController.dispose();
+    super.dispose();
   }
 
   @override

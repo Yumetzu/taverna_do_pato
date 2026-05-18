@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:taverna/tela_login.dart';
+
 
 class TelaCadastro extends StatefulWidget {
   const TelaCadastro({super.key});
@@ -15,6 +17,12 @@ class _TelaCadastroState extends State<TelaCadastro> {
   final _userController = TextEditingController();
   final _senhaController = TextEditingController();
   final _telefoneController = TextEditingController();
+  bool invisivel = true;
+  escondersenha() {
+    setState(() {
+      invisivel = !invisivel;
+    });
+  }
 
   @override
   void dispose() {
@@ -42,14 +50,19 @@ class _TelaCadastroState extends State<TelaCadastro> {
           child: Center(
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    'Cadastro',
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white70,
+                  Container(
+                    color: Colors.red,
+                    child: const Text(
+                      textAlign: TextAlign.center,
+                      'Cadastro',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white70,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 40),
@@ -60,12 +73,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
                     decoration: const InputDecoration(
                       labelText: 'Nome de Usuário',
                       labelStyle: TextStyle(color: Colors.deepOrange),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.deepOrange),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.amber),
-                      ),
                     ),
                     validator: (valor) {
                       if (valor == null || valor.isEmpty) return 'Digite seu nome';
@@ -87,12 +94,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
                     decoration: const InputDecoration(
                       labelText: 'E-mail',
                       labelStyle: TextStyle(color: Colors.deepOrange),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.deepOrange)
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.amber),
-                      )
                     ),
                     validator: (valor) {
                       if (valor == null || valor.isEmpty) return 'Digite seu E-mail';
@@ -102,7 +103,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       if (!emailRegExp.hasMatch(valor)) {
                         return 'E-mail deve começar com letra e ser válido (ex: pato@taverna.com)';
                       }
-                      return null;
                       return null;
                     },
                   ),
@@ -119,12 +119,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
                     decoration: const InputDecoration(
                       labelText: 'Telefone',
                       labelStyle: TextStyle(color: Colors.deepOrange),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.deepOrange)
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.amber),
-                      )
                     ),
                     validator: (valor) {
                       if (valor == null || valor.isEmpty) return 'Digite seu Telefone';
@@ -141,50 +135,41 @@ class _TelaCadastroState extends State<TelaCadastro> {
                   // Campo Senha
                   TextFormField(
                     controller: _senhaController,
-                    obscureText: true,
+                    obscureText: invisivel,
                     obscuringCharacter: '●',
                     style:  const TextStyle(
                       color: Color.fromARGB(75, 255, 255, 255),
                       fontSize: 8,
                       letterSpacing: 2.0,
                     ),
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
+                      prefixIcon: GestureDetector(
+                        onTap:(){
+                          escondersenha();
+                        },
+                        child: Icon(Icons.password),
+                      ),
                       labelText: 'Senha',
                       labelStyle: TextStyle(color: Colors.deepOrange),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.deepOrange),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.amber),
-                      )
                     ),
                       validator: (valor) {
-                        if (valor == null || valor.isEmpty) return 'Digite sua senha';
-
-                        final senhaRegExp = RegExp(r'^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$&*~]).{8,}$');
-
-                        if (!senhaRegExp.hasMatch(valor)) {
-                          return 'A senha deve ter 8+ caracteres, 1 maiúscula, 1 número e 1 símbolo (!@#\$&*~)';
-                        }
-                        return null;
+                        return Validacoes().validasenha(valor);
                       }
                   ),
                   const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        if (kDebugMode) {
                           print("Usuário: ${_userController.text}");
                         }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepOrange,
-                        foregroundColor: Colors.white,
-                      ),
-                      child: const Text("CADASTRAR"),
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepOrange,
+                      foregroundColor: Colors.white,
                     ),
+                    child: const Text("CADASTRAR"),
                   ),
                   const SizedBox(height: 16),
                   Row(
@@ -218,5 +203,18 @@ class _TelaCadastroState extends State<TelaCadastro> {
         ),
       ),
     );
+  }
+}
+
+class Validacoes {
+  validasenha (valor) {
+  if (valor == null || valor.isEmpty) return 'Digite sua senha';
+
+  final senhaRegExp = RegExp(r'^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$&*~]).{8,}$');
+
+  if (!senhaRegExp.hasMatch(valor)) {
+  return 'A senha deve ter 8+ caracteres, 1 maiúscula, 1 número e 1 símbolo (!@#\$&*~)';
+  }
+  return null;
   }
 }
